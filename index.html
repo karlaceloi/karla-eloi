@@ -1,0 +1,861 @@
+from textwrap import dedent
+
+html = dedent("""
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karla Eloi | Especialista em Projetos, PMO & Business Transformation</title>
+  <meta name="description" content="Currículo web de Karla Eloi - Especialista em Projetos, PMO e Business Transformation." />
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg-soft:#121933;
+      --card:#121a2f;
+      --card-2:#18223f;
+      --text:#e8ecf8;
+      --muted:#a8b2cc;
+      --line:rgba(255,255,255,.08);
+      --primary:#7c5cff;
+      --primary-2:#4cc9f0;
+      --accent:#b3a1ff;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --tag:#1d2747;
+      --hero-glow: radial-gradient(circle at top left, rgba(124,92,255,.25), transparent 35%),
+                   radial-gradient(circle at top right, rgba(76,201,240,.18), transparent 30%);
+    }
+
+    body.light{
+      --bg:#f6f8fc;
+      --bg-soft:#eef2fb;
+      --card:#ffffff;
+      --card-2:#f8faff;
+      --text:#172033;
+      --muted:#5e6a85;
+      --line:rgba(23,32,51,.09);
+      --primary:#5b4bff;
+      --primary-2:#0ea5e9;
+      --accent:#6a5cff;
+      --shadow:0 10px 30px rgba(28,41,72,.10);
+      --tag:#eef2ff;
+      --hero-glow: radial-gradient(circle at top left, rgba(91,75,255,.12), transparent 35%),
+                   radial-gradient(circle at top right, rgba(14,165,233,.10), transparent 30%);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .35s ease, color .35s ease;
+      line-height:1.6;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%}
+
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity:.18;
+      pointer-events:none;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+    }
+
+    .container{
+      width:min(1180px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      min-height:74px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+
+    .brand strong{
+      font-size:15px;
+      letter-spacing:.02em;
+    }
+
+    .brand span{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn, .toggle{
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      color:var(--text);
+      padding:11px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+      box-shadow: var(--shadow);
+      font-size:14px;
+    }
+
+    .btn:hover, .toggle:hover{
+      transform: translateY(-1px);
+    }
+
+    .btn.primary{
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      border:none;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:72px 0 44px;
+      background: var(--hero-glow);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: color-mix(in srgb, var(--card) 82%, transparent);
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:18px;
+    }
+
+    h1{
+      font-size:clamp(38px, 7vw, 66px);
+      line-height:1;
+      margin:0 0 16px;
+      letter-spacing:-.04em;
+    }
+
+    .hero p{
+      font-size:18px;
+      color:var(--muted);
+      max-width:760px;
+      margin:0 0 24px;
+    }
+
+    .hero-cta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+    }
+
+    .stat{
+      padding:18px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 95%, transparent), color-mix(in srgb, var(--card-2) 95%, transparent));
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:28px;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .profile-card{
+      padding:28px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 95%, transparent), color-mix(in srgb, var(--card-2) 95%, transparent));
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .profile-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:160px;
+      height:160px;
+      background: radial-gradient(circle, rgba(124,92,255,.25), transparent 60%);
+      pointer-events:none;
+    }
+
+    .profile-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .avatar{
+      width:64px;
+      height:64px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:24px;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      box-shadow:var(--shadow);
+    }
+
+    .mini{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .contact-item{
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      font-size:14px;
+    }
+
+    section{
+      padding:28px 0;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .section-title h2{
+      font-size:32px;
+      letter-spacing:-.03em;
+      margin:0;
+    }
+
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      max-width:680px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:22px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 98%, transparent), color-mix(in srgb, var(--card-2) 98%, transparent));
+      box-shadow:var(--shadow);
+      padding:24px;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .card:hover{
+      transform: translateY(-2px);
+    }
+
+    .lead{
+      font-size:17px;
+      color:var(--muted);
+      margin-top:0;
+    }
+
+    .timeline{
+      display:grid;
+      gap:16px;
+    }
+
+    .timeline-item{
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+    }
+
+    .timeline-item h3{
+      margin:0 0 4px;
+      font-size:18px;
+    }
+
+    .timeline-item .meta{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:10px;
+    }
+
+    .timeline-item ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .tags{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      padding:10px 14px;
+      border-radius:999px;
+      background:var(--tag);
+      border:1px solid var(--line);
+      font-size:13px;
+      color:var(--text);
+    }
+
+    .cases{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+    }
+
+    .case{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .case .pill{
+      display:inline-flex;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      margin-bottom:14px;
+    }
+
+    .case h3{
+      margin:0 0 8px;
+      font-size:19px;
+    }
+
+    .case p{
+      color:var(--muted);
+      font-size:15px;
+      margin:0 0 16px;
+    }
+
+    .case ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--text);
+    }
+
+    .education-list, .cert-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .simple-item{
+      padding:16px 18px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+    }
+
+    .simple-item strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .footer{
+      padding:32px 0 56px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    .linkedin-box{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .print-note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media (max-width: 980px){
+      .hero-grid, .grid-2, .cases{
+        grid-template-columns:1fr;
+      }
+
+      .hero-stats{
+        grid-template-columns:1fr;
+      }
+
+      .section-title{
+        align-items:start;
+        flex-direction:column;
+      }
+    }
+
+    @media print{
+      .nav, .bg-grid, .hero-cta, .print-note{
+        display:none !important;
+      }
+      body{
+        background:white;
+        color:black;
+      }
+      .hero, section, .footer{
+        padding:18px 0;
+      }
+      .card, .stat, .timeline-item, .simple-item, .profile-card{
+        box-shadow:none;
+        break-inside:avoid;
+      }
+      a{
+        color:black;
+        text-decoration:none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <strong>Karla Eloi</strong>
+        <span>Especialista em Projetos | PMO | Business Transformation</span>
+      </div>
+
+      <div class="nav-actions">
+        <a class="btn" href="#cases">Cases</a>
+        <a class="btn" href="#experiencia">Experiência</a>
+        <a class="btn" href="https://www.linkedin.com/in/karla-eloi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <button class="toggle" id="themeToggle" aria-label="Alternar tema">🌙 Tema</button>
+        <button class="btn primary" id="downloadPdf">Baixar em PDF</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Projetos • PMO • Process Transformation • IA aplicada a negócios</div>
+        <h1>Karla Eloi</h1>
+        <p>
+          Economista com MBA em Finanças, Lean Six Sigma Green Belt e atuação em Business Transformation na Accenture.
+          Experiência consolidada em iniciativas de melhoria contínua, transformação end-to-end, automação operacional
+          e estruturação de soluções orientadas a produtividade, governança e escalabilidade.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="mailto:karlaceloi@outlook.com">Entrar em contato</a>
+          <a class="btn" href="https://www.linkedin.com/in/karla-eloi" target="_blank" rel="noopener noreferrer">Ver LinkedIn</a>
+          <a class="btn" href="#cases">Explorar cases</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>Projetos & PMO</strong>
+            <span>Transição estratégica para posições de maior protagonismo em gestão, governança e execução.</span>
+          </div>
+          <div class="stat">
+            <strong>OTC & Processos</strong>
+            <span>Atuação forte em Order-to-Cash, melhoria contínua, padronização e eficiência operacional.</span>
+          </div>
+          <div class="stat">
+            <strong>IA + Python</strong>
+            <span>Vibe Coding com GPT, Claude, Python e GitHub para acelerar entregas e reduzir esforço manual.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="profile-card reveal">
+        <div class="profile-top">
+          <div>
+            <div class="avatar">KE</div>
+          </div>
+          <div>
+            <strong style="font-size:18px;">Perfil Executivo</strong>
+            <div class="mini">Belo Horizonte – MG</div>
+          </div>
+        </div>
+
+        <p class="lead" style="margin-bottom:10px;">
+          Profissional com visão de negócio, forte capacidade analítica e atuação conectando processos, dados, tecnologia e execução.
+        </p>
+
+        <div class="contact-list">
+          <div class="contact-item"><strong>E-mail</strong><br>karlaceloi@outlook.com</div>
+          <div class="contact-item"><strong>Telefone</strong><br>(31) 99339-8624</div>
+          <div class="contact-item"><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/karla-eloi" target="_blank" rel="noopener noreferrer">linkedin.com/in/karla-eloi</a></div>
+        </div>
+
+        <p class="print-note">Dica: use o botão “Baixar em PDF” para gerar uma versão pronta para envio.</p>
+      </aside>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="resumo">
+      <div class="section-title reveal">
+        <h2>Resumo profissional</h2>
+        <p>
+          Em transição estratégica para Especialista em Projetos / PMO, unindo gestão estruturada, visão financeira, melhoria de processos e uso de tecnologia para acelerar resultados.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <p class="lead">
+            Diferencial na aplicação de <strong>Vibe Coding</strong> na transformação de processos, utilizando IA generativa, Python e GitHub para estruturar automações, desenhar soluções e impulsionar entregas mais ágeis e orientadas a valor.
+          </p>
+          <div class="tags">
+            <span class="tag">Gestão de Projetos</span>
+            <span class="tag">PMO</span>
+            <span class="tag">Governança</span>
+            <span class="tag">Order-to-Cash</span>
+            <span class="tag">Lean Six Sigma</span>
+            <span class="tag">Automação</span>
+            <span class="tag">IA Generativa</span>
+            <span class="tag">Python</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">GitHub</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3 style="margin-top:0;">Posicionamento profissional</h3>
+          <p class="lead">
+            Capacidade de atuar entre estratégia e execução, estruturando iniciativas, apoiando tomada de decisão e transformando operações em fluxos mais eficientes, rastreáveis e escaláveis.
+          </p>
+          <ul>
+            <li>Planejamento, acompanhamento e priorização de iniciativas</li>
+            <li>Interface com stakeholders e alinhamento entre áreas</li>
+            <li>Mapeamento, redesenho e padronização de processos</li>
+            <li>Uso de dados e automação para gerar produtividade</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-title reveal">
+        <h2>Cases de projetos</h2>
+        <p>
+          Exemplos de atuação que reforçam posicionamento em projetos, transformação e melhoria operacional.
+        </p>
+      </div>
+
+      <div class="cases">
+        <article class="card case reveal">
+          <span class="pill">Case 01</span>
+          <h3>Transformação de processos OTC</h3>
+          <p>
+            Atuação em iniciativas voltadas à jornada Order-to-Cash, com foco em eficiência operacional, padronização e escalabilidade.
+          </p>
+          <ul>
+            <li>Mapeamento de oportunidades e análise de causa raiz</li>
+            <li>Redesenho de fluxos e definição de indicadores</li>
+            <li>Interface com stakeholders para priorização de demandas</li>
+          </ul>
+        </article>
+
+        <article class="card case reveal">
+          <span class="pill">Case 02</span>
+          <h3>IA + automações aplicadas ao negócio</h3>
+          <p>
+            Aplicação de IA generativa, Python e GitHub para acelerar o desenho e desenvolvimento de soluções voltadas à redução de esforço manual.
+          </p>
+          <ul>
+            <li>Estruturação de automações para ganho de produtividade</li>
+            <li>Apoio à digitalização de atividades operacionais</li>
+            <li>Entregas mais ágeis e orientadas a valor</li>
+          </ul>
+        </article>
+
+        <article class="card case reveal">
+          <span class="pill">Case 03</span>
+          <h3>Integração financeira e governança</h3>
+          <p>
+            Participação em projetos de integração e padronização financeira, com suporte à tomada de decisão por meio de dados e relatórios executivos.
+          </p>
+          <ul>
+            <li>Integração de processos e sistemas</li>
+            <li>Desenvolvimento de relatórios gerenciais</li>
+            <li>Fortalecimento de governança e visibilidade operacional</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="experiencia">
+      <div class="section-title reveal">
+        <h2>Experiência profissional</h2>
+        <p>
+          Trajetória construída em finanças, transformação e operações, com evolução consistente para um perfil mais orientado a projetos e PMO.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <h3>Accenture | Senior Analyst – Business Transformation</h3>
+          <div class="meta">Jul/2025 – Atual</div>
+          <ul>
+            <li>Atuação em iniciativas de transformação de processos com foco na jornada Order-to-Cash (OTC)</li>
+            <li>Identificação de oportunidades de otimização e condução de análises de causa raiz</li>
+            <li>Implementação de soluções voltadas à eficiência operacional e ganho de produtividade</li>
+            <li>Participação em projetos de padronização de fluxos, automação de atividades e definição de KPIs</li>
+            <li>Aplicação de IA e automações para redução de esforço manual e aumento de escalabilidade</li>
+            <li>Interface com stakeholders para alinhamento de demandas e priorização de iniciativas</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Accenture (cliente: Grupo Oncoclínicas) | Analista Financeiro Sênior</h3>
+          <div class="meta">Abr/2024 – Jun/2025</div>
+          <ul>
+            <li>Atuação em projetos de integração e transformação financeira</li>
+            <li>Gestão de processos de Contas a Receber e integração de sistemas</li>
+            <li>Desenvolvimento de relatórios gerenciais e indicadores de performance</li>
+            <li>Suporte à tomada de decisão com base em dados e análise financeira</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Grupo Oncoclínicas | Analista Financeiro Sênior – Integração</h3>
+          <div class="meta">Nov/2022 – Mar/2024</div>
+          <ul>
+            <li>Liderança de atividades de integração financeira pós-M&A</li>
+            <li>Estruturação e padronização de processos com foco em governança</li>
+            <li>Monitoramento de indicadores e apoio à escalabilidade operacional</li>
+            <li>Desenvolvimento de dashboards e relatórios executivos</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Stellantis | Analista de Contas a Receber</h3>
+          <div class="meta">Dez/2021 – Nov/2022</div>
+          <ul>
+            <li>Gestão do ciclo completo de contas a receber (Fiat, Jeep, Ram, Peugeot e Citroën)</li>
+            <li>Relacionamento com concessionárias e gestão de baixas e transferências</li>
+            <li>Conciliação de créditos bancários e atuação em auditorias LATAM</li>
+            <li>Análise de dados financeiros e relatórios gerenciais</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Direcional Engenharia | Analista Financeiro de Tesouraria</h3>
+          <div class="meta">2019 – 2021</div>
+          <ul>
+            <li>Gestão de fluxo de caixa, contas e relacionamento com bancos</li>
+            <li>Atuação em Cash Pooling, pagamentos e aplicações financeiras</li>
+            <li>Evolução interna de estagiária para analista</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <h3>Itaú Unibanco | Estagiária</h3>
+          <div class="meta">2018</div>
+          <ul>
+            <li>Atendimento ao cliente, organização de processos e suporte operacional</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="formacao">
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="section-title" style="margin-bottom:16px;">
+            <h2 style="font-size:26px;">Formação</h2>
+          </div>
+          <div class="education-list">
+            <div class="simple-item">
+              <strong>MBA em Finanças – Ibmec</strong>
+              <span>2021–2022</span>
+            </div>
+            <div class="simple-item">
+              <strong>Bacharelado em Economia – Centro Universitário Una</strong>
+              <span>2018–2020</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="section-title" style="margin-bottom:16px;">
+            <h2 style="font-size:26px;">Certificações</h2>
+          </div>
+          <div class="cert-list">
+            <div class="simple-item"><strong>Lean Six Sigma Green Belt – FM2S</strong><span>2025</span></div>
+            <div class="simple-item"><strong>Fundamentos de Gestão de Projetos – LinkedIn Learning</strong><span>2025</span></div>
+            <div class="simple-item"><strong>Power BI – Hashtag Treinamentos</strong><span>2023</span></div>
+            <div class="simple-item"><strong>CPA-10 – ANBIMA</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="complementar">
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="section-title" style="margin-bottom:16px;">
+            <h2 style="font-size:26px;">Formação complementar</h2>
+          </div>
+          <div class="education-list">
+            <div class="simple-item"><strong>Preparação CAPM (PMI) – Alura</strong><span>Em andamento</span></div>
+            <div class="simple-item"><strong>Business Agility – Alura</strong><span>Em andamento</span></div>
+            <div class="simple-item"><strong>Modelagem e Melhoria de Processos e Negócios – Alura</strong><span>Em andamento</span></div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="section-title" style="margin-bottom:16px;">
+            <h2 style="font-size:26px;">Competências</h2>
+          </div>
+          <div class="tags">
+            <span class="tag">Planejamento e controle de projetos</span>
+            <span class="tag">Gestão de stakeholders</span>
+            <span class="tag">Scrum</span>
+            <span class="tag">Kanban</span>
+            <span class="tag">Governança</span>
+            <span class="tag">KPIs</span>
+            <span class="tag">Lean Six Sigma</span>
+            <span class="tag">Mapeamento de processos</span>
+            <span class="tag">Automação</span>
+            <span class="tag">Excel</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">Python</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">GPT</span>
+            <span class="tag">Claude</span>
+            <span class="tag">Vibe Coding aplicado a negócios</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="linkedin">
+      <div class="card reveal linkedin-box">
+        <div>
+          <h2 style="margin:0 0 8px;">Integração com LinkedIn</h2>
+          <p class="lead" style="margin:0;">
+            Seu perfil pode funcionar como extensão natural deste currículo web. O botão abaixo leva direto ao seu LinkedIn profissional.
+          </p>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn primary" href="https://www.linkedin.com/in/karla-eloi" target="_blank" rel="noopener noreferrer">Abrir LinkedIn</a>
+          <a class="btn" href="mailto:karlaceloi@outlook.com">Falar por e-mail</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="reveal">
+        Currículo web desenvolvido para posicionamento profissional em vagas de Especialista em Projetos, PMO e Business Transformation.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const body = document.body;
+    const savedTheme = localStorage.getItem('karla-theme');
+    if (savedTheme === 'light') body.classList.add('light');
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      body.classList.toggle('light');
+      const mode = body.classList.contains('light') ? 'light' : 'dark';
+      localStorage.setItem('karla-theme', mode);
+    });
+
+    document.getElementById('downloadPdf').addEventListener('click', () => {
+      window.print();
+    });
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12});
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
+""")
+
+path = "/mnt/data/karla_eloi_cv_web_v2.html"
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+
+print(path)
